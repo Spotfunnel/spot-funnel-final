@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple (iCloud) Setup - Spot Funnel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: #14b8a6;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .intro {
+            background: #f0fdfa;
+            border-left: 4px solid #14b8a6;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .intro p {
+            color: #333;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            color: #14b8a6;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #14b8a6;
+        }
+
+        .step {
+            margin-bottom: 15px;
+            padding-left: 35px;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #14b8a6;
+            color: white;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .step-content {
+            color: #333;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .step-content strong {
+            color: #14b8a6;
+        }
+
+        .info-box {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .info-box p {
+            color: #92400e;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .info-box strong {
+            color: #78350f;
+        }
+
+        .email-form {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .form-title {
+            color: #14b8a6;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: monospace;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #14b8a6;
+        }
+
+        .submit-btn {
+            background: #14b8a6;
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #0d9488;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-link a {
+            color: #14b8a6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>Apple (iCloud) Setup</h1>
+            <p>Connect Your Apple Email & Calendar</p>
+        </div>
+
+        <div class="intro">
+            <p>Apple uses app-specific passwords instead of OAuth. Don't worry - it's quick and secure! Follow the steps
+                below to generate your app-specific password and send it to us.</p>
+        </div>
+
+        <!-- PART 1 -->
+        <div class="section">
+            <div class="section-title">Part 1: Generate App-Specific Password</div>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">Go to: <strong>appleid.apple.com</strong></div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">Sign in with your Apple ID</div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">Navigate to <strong>Sign-In and Security</strong> section</div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">Click <strong>App-Specific Passwords</strong></div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">Click the <strong>+ button</strong> (or Generate Password)</div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <div class="step-content">Enter a label: <strong>"Spot Funnel"</strong></div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">7</div>
+                <div class="step-content">Click <strong>Create</strong></div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">8</div>
+                <div class="step-content">Copy the 16-character password (format: <strong>xxxx-xxxx-xxxx-xxxx</strong>)
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><strong>⚠️ IMPORTANT:</strong> Save this password immediately! You won't be able to see it again. If
+                    you lose it, you'll need to generate a new one.</p>
+            </div>
+        </div>
+
+        <!-- PART 2 -->
+        <div class="section">
+            <div class="section-title">Part 2: Send Us Your Information</div>
+
+            <div class="email-form">
+                <div class="form-title">📧 Your Apple Account Details</div>
+                <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Fill in the form below and click "Send to
+                    Spot Funnel". We'll configure everything for you!</p>
+
+                <form id="apple-form">
+                    <div class="form-group">
+                        <label for="email">Your iCloud Email Address:</label>
+                        <input type="email" id="email" placeholder="your-email@icloud.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">App-Specific Password (from Part 1):</label>
+                        <input type="text" id="password" placeholder="xxxx-xxxx-xxxx-xxxx"
+                            pattern="[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}"
+                            title="Format: xxxx-xxxx-xxxx-xxxx" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer-email">Your Contact Email (for confirmation):</label>
+                        <input type="email" id="customer-email" placeholder="contact@example.com" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send to Spot Funnel</button>
+
+                    <!-- Hidden Confirmation Button -->
+                    <button type="button" id="confirm-sent-btn" class="submit-btn"
+                        style="display: none; background-color: #10b981; margin-top: 15px;">
+                        ✅ I have sent the email
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="connect.html">← Back to Connection Page</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('apple-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const customerEmail = document.getElementById('customer-email').value;
+
+            // Create mailto link
+            const subject = 'Apple iCloud Setup - Spot Funnel';
+            const body = `Hi Spot Funnel Team,
+
+Please set up my Apple iCloud account using the details below:
+
+iCloud Email: ${email}
+App-Specific Password: ${password}
+Contact Email: ${customerEmail}
+
+Please let me know once the setup is complete or if you need anything further from me.
+
+Thank you!`;
+
+            const mailtoLink = `mailto:support@getspotfunnel.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            // Open email client
+            window.location.href = mailtoLink;
+
+            // MANUAL CONFIRMATION LOGIC
+            const btn = document.querySelector('.submit-btn');
+            btn.textContent = 'Email sent';
+            btn.style.background = '#14b8a6'; // Teal
+
+            // Remove the submit listener momentarily or change behavior
+            // Actually, simpler: Just change the button to be a "Confirm" button now
+
+            // We need to stop the auto-redirect and wait for a second click
+            // The simplest way is to replace the button clone to strip listeners, then add a new one
+
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+
+            newBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                // 1. Save "Connected" state
+                const urlParams = new URLSearchParams(window.location.search);
+                const type = urlParams.get('type') || 'email';
+                const connectedServices = JSON.parse(localStorage.getItem('spotfunnel_connected') || '{}');
+                const key = `apple-${type}`;
+
+                connectedServices[key] = {
+                    connected: true,
+                    timestamp: new Date().toISOString()
+                };
+                localStorage.setItem('spotfunnel_connected', JSON.stringify(connectedServices));
+
+                // 2. Redirect back
+                window.location.href = 'connect.html';
+            });
+        });
+    </script>
+</body>
+
+</html>
