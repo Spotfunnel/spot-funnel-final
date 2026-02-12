@@ -3,20 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spot Funnel - Revenue Protection Infrastructure</title>
+    <title>Connect Your Calendar & Email - Spot Funnel</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
-        :root {
-            --primary: #0f172a;
-            /* Deep Slate */
-            --accent: #10b981;
-            /* Emerald */
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -24,212 +12,192 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: var(--primary);
-            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            /* Subtle Square Grid per reference */
-            background-image:
-                linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
-            background-size: 60px 60px;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        /* Top Header */
-        .header {
-            padding: 40px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .container {
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            max-width: 600px;
             width: 100%;
-        }
-
-        .brand-block {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        /* Corrected Logo (Circle + 2 Legs) */
-        .logo-mark {
-            width: 32px;
-            height: 35px;
+            padding: 40px;
             position: relative;
         }
 
-        .mark-head {
-            width: 14px;
-            height: 14px;
-            background: #000;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .mark-body {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 20px;
+        .logo h1 {
+            color: #14b8a6;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .instructions {
+            background: #f0fdfa;
+            border-left: 4px solid #14b8a6;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .instructions p {
+            color: #333;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: #14b8a6;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #14b8a6;
+        }
+
+        .provider-group {
             display: flex;
-            justify-content: center;
-            gap: 4px;
+            gap: 10px;
+            align-items: stretch;
         }
 
-        .leg {
-            width: 8px;
-            height: 22px;
-            background: #000;
-        }
-
-        .leg-left {
-            transform: rotate(18deg) translateY(-1px);
-        }
-
-        .leg-right {
-            transform: rotate(-18deg) translateY(-1px);
-        }
-
-        .brand-text {
-            font-size: 13px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #000;
-        }
-
-        .confidential {
-            font-size: 10px;
-            font-weight: 700;
-            color: #94a3b8;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        /* Main Stage */
-        .main-stage {
+        .dropdown-wrapper {
             flex: 1;
-            padding: 0 100px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            max-width: 1200px;
+        }
+
+        .provider-select {
             width: 100%;
-            margin-top: -40px;
+            padding: 12px 16px;
+            font-size: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+            padding-right: 45px;
         }
 
-        h1 {
-            font-size: 92px;
-            font-weight: 800;
-            line-height: 0.95;
-            letter-spacing: -4px;
-            color: #0f172a;
-            margin-bottom: 40px;
+        .provider-select:hover {
+            border-color: #14b8a6;
         }
 
-        h1 .gradient {
-            background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-style: italic;
-            /* Matching original style */
+        .provider-select:focus {
+            outline: none;
+            border-color: #14b8a6;
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
         }
 
-        .sub-headline-box {
-            border-left: 4px solid var(--accent);
-            padding-left: 32px;
-            margin-bottom: 40px;
-            max-width: 700px;
+        .connect-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #14b8a6;
+            color: white;
+            min-width: 120px;
         }
 
-        .sub-headline {
-            font-size: 24px;
-            line-height: 1.4;
-            color: #475569;
-            font-weight: 400;
+        .connect-btn:hover {
+            background: #0d9488;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
         }
 
-        .cta-container {
-            margin-bottom: 60px;
+        .connect-btn.connected {
+            background: #059669;
+            pointer-events: none;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 18px 36px;
-            background: #10b981;
+        .dashboard-btn-wrapper {
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .dashboard-btn {
+            width: 100%;
+            padding: 16px;
+            background: #0f172a;
             color: white;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 700;
-            font-size: 18px;
-            transition: all 0.2s;
-            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+            font-size: 16px;
+            display: inline-block;
+            transition: background 0.2s;
         }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            background: #059669;
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        .dashboard-btn:hover {
+            background: #1e293b;
         }
 
-        /* Metrics Bar */
-        .metrics-divider {
-            height: 1px;
-            background: var(--primary);
+        /* Success Overlay */
+        .success-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 800px;
-            margin-bottom: 32px;
-            opacity: 0.2;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            border-radius: 12px;
+            text-align: center;
+            padding: 20px;
         }
 
-        .metrics-grid {
+        .success-overlay.active {
             display: flex;
-            gap: 100px;
+            animation: fadeIn 0.3s ease forwards;
         }
 
-        .metric .label {
-            font-size: 11px;
-            font-weight: 800;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            margin-bottom: 8px;
-            display: block;
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
         }
 
-        .metric .value {
-            font-size: 20px;
-            font-weight: 700;
-            color: #0f172a;
+        .success-overlay h2 {
+            color: #059669;
+            margin-bottom: 10px;
         }
 
-        /* Footer */
-        .footer {
-            padding: 40px 60px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
-            font-weight: 600;
-            color: #cbd5e1;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        /* Entrance Animation */
-        .fade-in {
-            animation: fadeInReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        @keyframes fadeInReveal {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
 
             to {
@@ -237,62 +205,188 @@
                 transform: translateY(0);
             }
         }
+
+        .features {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            color: #666;
+            font-size: 14px;
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #14b8a6;
+            font-weight: bold;
+            font-size: 18px;
+        }
     </style>
 </head>
-
 <body>
-
-    <header class="header">
-        <div class="brand-block">
-            <div class="logo-mark">
-                <div class="mark-head"></div>
-                <div class="mark-body">
-                    <div class="leg leg-left"></div>
-                    <div class="leg leg-right"></div>
-                </div>
-            </div>
-            <div class="brand-text">SpotFunnel<span class="logo-dot">.</span></div>
+    <div class="container">
+        <!-- Success Modal Overlay -->
+        <div id="success-overlay" class="success-overlay">
+            <div class="success-icon">✅</div>
+            <h2 id="success-message">Success!</h2>
+            <p id="success-subtext">Your account has been linked.</p>
         </div>
-        <div class="confidential">CONFIDENTIAL // 2026 STRATEGY</div>
-    </header>
 
-    <main class="main-stage">
-        <div class="fade-in">
-            <h1>
-                Revenue Protection<br>
-                <span class="gradient">Infrastructure.</span>
-            </h1>
+        <div class="logo">
+            <h1>Spot Funnel</h1>
+            <p>Connect Your Calendar & Email</p>
+        </div>
 
-            <div class="sub-headline-box">
-                <p class="sub-headline">
-                    The automated architectural layer that captures, qualifies,
-                    and converts missed opportunities into measurable
-                    enterprise value.
-                </p>
-            </div>
+        <div class="instructions">
+            <p><strong>Quick Setup:</strong> Please click the relevant account info button below to authorize Spot
+                Funnel to access your calendar and email. This allows our Voice AI to automatically book appointments
+                and send customer emails on your behalf.</p>
+        </div>
 
-            <div class="cta-container">
-                <a href="connect.html" class="cta-button">Connect Your Apps →</a>
-            </div>
-
-            <div class="metrics-divider"></div>
-
-            <div class="metrics-grid">
-                <div class="metric">
-                    <span class="label">Problem</span>
-                    <p class="value">62% of inbound calls go unanswered.</p>
+        <!-- EMAIL SECTION -->
+        <div class="section">
+            <div class="section-title">📧 Email Connection</div>
+            <div class="provider-group">
+                <div class="dropdown-wrapper">
+                    <select id="email-provider" class="provider-select">
+                        <option value="">Select your email provider</option>
+                        <option value="google">Google (Gmail)</option>
+                        <option value="microsoft">Microsoft (Outlook)</option>
+                        <option value="apple">Apple (iCloud Mail)</option>
+                    </select>
                 </div>
-                <div class="metric">
-                    <span class="label">Outcome</span>
-                    <p class="value">Zero Lead Leakage.</p>
-                </div>
+                <button id="email-connect-btn" class="connect-btn">Connect</button>
             </div>
         </div>
-    </main>
 
-    <footer class="footer">
-        <div>© 2026 Spot Funnel Technologies</div>
-        <div>INTERNAL USE ONLY</div>
-    </footer>
+        <!-- CALENDAR SECTION -->
+        <div class="section">
+            <div class="section-title">📅 Calendar Connection</div>
+            <div class="provider-group">
+                <div class="dropdown-wrapper">
+                    <select id="calendar-provider" class="provider-select">
+                        <option value="">Select your calendar provider</option>
+                        <option value="google">Google Calendar</option>
+                        <option value="microsoft">Microsoft Outlook Calendar</option>
+                        <option value="apple">Apple Calendar (iCloud)</option>
+                    </select>
+                </div>
+                <button id="calendar-connect-btn" class="connect-btn">Connect</button>
+            </div>
+        </div>
+
+        <!-- Final Finish Button -->
+        <div id="dashboard-btn-wrapper" class="dashboard-btn-wrapper">
+            <a href="#" class="dashboard-btn" onclick="location.reload(); return false;">All Done! Connections Complete ✓</a>
+        </div>
+
+        <div class="features">
+            <ul class="feature-list">
+                <li>Check your calendar for availability</li>
+                <li>Book appointments into your calendar</li>
+                <li>Send emails on your behalf</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const CONFIG = {
+            googleClientId: '795418246463-bfh03g04tkgpletq92dj5n541qaeconf.apps.googleusercontent.com',
+            googleRedirectUri: 'https://spotfunnel.app.n8n.cloud/webhook/google-oauth-callback',
+            microsoftClientId: '146d112c-4201-4d94-9472-f96f6edd4198',
+            microsoftRedirectUri: 'https://spotfunnel.app.n8n.cloud/webhook/microsoft-oauth-callback'
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const success = urlParams.get('success');
+        const service = urlParams.get('service');
+        const type = urlParams.get('type');
+
+        // Handle Success Arrival
+        if (success === 'true' && service && type) {
+            const connectedServices = JSON.parse(localStorage.getItem('spotfunnel_connected') || '{}');
+            connectedServices[`${service}-${type}`] = { connected: true, timestamp: new Date().toISOString() };
+            localStorage.setItem('spotfunnel_connected', JSON.stringify(connectedServices));
+
+            // Show Success Overlay
+            const overlay = document.getElementById('success-overlay');
+            const msg = document.getElementById('success-message');
+            const sub = document.getElementById('success-subtext');
+
+            msg.textContent = `${service.charAt(0).toUpperCase() + service.slice(1)} ${type.charAt(0).toUpperCase() + type.slice(1)} Connected!`;
+            sub.textContent = "Your account is now linked. You can continue or finish below.";
+            overlay.classList.add('active');
+
+            // Remove it after 3 seconds
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                // Clean URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+                updateUI();
+            }, 3000);
+        }
+
+        function isConnected(type) {
+            const connectedServices = JSON.parse(localStorage.getItem('spotfunnel_connected') || '{}');
+            return Object.keys(connectedServices).some(key => key.endsWith(`-${type}`) && connectedServices[key].connected);
+        }
+
+        function updateUI() {
+            const emailConnected = isConnected('email');
+            const calendarConnected = isConnected('calendar');
+
+            if (emailConnected) {
+                const btn = document.getElementById('email-connect-btn');
+                btn.textContent = 'Connected ✓';
+                btn.classList.add('connected');
+                btn.disabled = true;
+            }
+
+            if (calendarConnected) {
+                const btn = document.getElementById('calendar-connect-btn');
+                btn.textContent = 'Connected ✓';
+                btn.classList.add('connected');
+                btn.disabled = true;
+            }
+
+            if (emailConnected && calendarConnected) {
+                document.getElementById('dashboard-btn-wrapper').style.display = 'block';
+            }
+        }
+
+        updateUI();
+
+        document.getElementById('email-connect-btn').addEventListener('click', () => handleConnect('email'));
+        document.getElementById('calendar-connect-btn').addEventListener('click', () => handleConnect('calendar'));
+
+        function handleConnect(type) {
+            const provider = document.getElementById(`${type}-provider`).value;
+            if (!provider) { alert(`Select a ${type} provider`); return; }
+
+            const state = JSON.stringify({ type, provider });
+            const scopes = provider === 'google'
+                ? ['openid', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', type === 'email' ? 'https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly' : 'https://www.googleapis.com/auth/calendar']
+                : ['openid', 'profile', 'email', 'User.Read', 'offline_access', type === 'email' ? 'https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Mail.Read' : 'https://graph.microsoft.com/Calendars.ReadWrite'];
+
+            if (provider === 'google') {
+                window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CONFIG.googleClientId}&redirect_uri=${CONFIG.googleRedirectUri}&response_type=code&scope=${scopes.join(' ')}&access_type=offline&prompt=consent&state=${state}`;
+            } else if (provider === 'microsoft') {
+                window.location.href = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${CONFIG.microsoftClientId}&redirect_uri=${CONFIG.microsoftRedirectUri}&response_type=code&scope=${scopes.join(' ')}&response_mode=query&state=${state}`;
+            } else {
+                window.location.href = `apple-setup.html?type=${type}`;
+            }
+        }
+    </script>
 </body>
 </html>
