@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,6 +29,7 @@
             max-width: 600px;
             width: 100%;
             padding: 40px;
+            position: relative;
         }
 
         .logo {
@@ -132,26 +132,84 @@
             box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
         }
 
-        .connect-btn:active {
-            transform: translateY(0);
+        .connect-btn.connected {
+            background: #059669;
+            pointer-events: none;
         }
 
-        /* Success State */
-        .connect-btn.connected {
-            background: #14b8a6;
-            pointer-events: none;
+        .dashboard-btn-wrapper {
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .dashboard-btn {
+            width: 100%;
+            padding: 16px;
+            background: #0f172a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+
+        .dashboard-btn:hover {
+            background: #1e293b;
+        }
+
+        /* Success Overlay */
+        .success-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            border-radius: 12px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .success-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .success-overlay h2 {
+            color: #059669;
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .features {
             margin-top: 30px;
             padding-top: 30px;
             border-top: 1px solid #e5e7eb;
-        }
-
-        .features h3 {
-            color: #14b8a6;
-            font-size: 16px;
-            margin-bottom: 15px;
         }
 
         .feature-list {
@@ -174,38 +232,24 @@
             font-weight: bold;
             font-size: 18px;
         }
-
-        .security-note {
-            margin-top: 20px;
-            padding: 15px;
-            background: #fef3c7;
-            border-radius: 6px;
-            text-align: center;
-        }
-
-        .security-note p {
-            color: #92400e;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .security-note strong {
-            color: #78350f;
-        }
     </style>
 </head>
-
 <body>
     <div class="container">
+        <!-- Success Modal Overlay -->
+        <div id="success-overlay" class="success-overlay">
+            <div class="success-icon">✅</div>
+            <h2 id="success-message">Success!</h2>
+            <p id="success-subtext">Your account has been linked.</p>
+        </div>
+
         <div class="logo">
             <h1>Spot Funnel</h1>
             <p>Connect Your Calendar & Email</p>
         </div>
 
         <div class="instructions">
-            <p><strong>Quick Setup:</strong> Please click the relevant account info button below to authorize Spot
-                Funnel to access your calendar and email. This allows our Voice AI to automatically book appointments
-                and send customer emails on your behalf.</p>
+            <p><strong>Quick Setup:</strong> Please click the relevant account info button below to authorize Spot Funnel to access your calendar and email. This allows our Voice AI to automatically book appointments and send customer emails on your behalf.</p>
         </div>
 
         <!-- EMAIL SECTION -->
@@ -240,27 +284,21 @@
             </div>
         </div>
 
+        <!-- Final Finish Button -->
+        <div id="dashboard-btn-wrapper" class="dashboard-btn-wrapper">
+            <a href="index.html" class="dashboard-btn">All Done! Go to Dashboard →</a>
+        </div>
+
         <div class="features">
-            <h3>What you're authorizing:</h3>
             <ul class="feature-list">
                 <li>Check your calendar for availability</li>
                 <li>Book appointments into your calendar</li>
                 <li>Send emails on your behalf</li>
-                <li>Read emails for automation</li>
             </ul>
         </div>
-
-        <div class="security-note">
-            <p><strong>🔒 Your data is secure.</strong> We only access what's needed to book appointments and send
-                emails. You can revoke access anytime from your Google or Microsoft account settings.</p>
-        </div>
-
-        <!-- Testing Tool -->
-        <!-- Testing Tool Removed for Production -->
     </div>
 
     <script>
-        // CONFIGURATION - UPDATED WITH REAL CREDENTIALS
         const CONFIG = {
             googleClientId: '795418246463-bfh03g04tkgpletq92dj5n541qaeconf.apps.googleusercontent.com',
             googleRedirectUri: 'https://spotfunnel.app.n8n.cloud/webhook/google-oauth-callback',
@@ -268,172 +306,85 @@
             microsoftRedirectUri: 'https://spotfunnel.app.n8n.cloud/webhook/microsoft-oauth-callback'
         };
 
-        // Get customer email from URL parameter (e.g., ?email=customer@example.com)
         const urlParams = new URLSearchParams(window.location.search);
-        const customerEmail = urlParams.get('email') || 'unknown';
+        const success = urlParams.get('success');
+        const service = urlParams.get('service');
+        const type = urlParams.get('type');
 
-        // --- NEW: Granular Connection State Management ---
-        const successParam = urlParams.get('success');
-        const serviceParam = urlParams.get('service');
-        const typeParam = urlParams.get('type');
-
-        // UpdateUI renamed to updateFromStorage to be clearer
-        function updateFromStorage() {
+        // Handle Success Arrival
+        if (success === 'true' && service && type) {
             const connectedServices = JSON.parse(localStorage.getItem('spotfunnel_connected') || '{}');
-
-            // Helper to check if a specific type is connected
-            function isConnected(type) {
-                // We need to check if ANY provider is connected for this type
-                // The key format is provider-type (e.g. google-email, apple-email)
-                const providers = ['google', 'microsoft', 'apple'];
-                for (const p of providers) {
-                    const key = `${p}-${type}`;
-                    if (connectedServices[key] && connectedServices[key].connected) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            // Update Email Button
-            if (isConnected('email')) {
-                const btn = document.getElementById('email-connect-btn');
-                if (btn) {
-                    btn.textContent = 'Connected';
-                    btn.classList.add('connected');
-                    btn.disabled = true;
-                    btn.style.backgroundColor = '#14b8a6';
-                }
-                // Update dropdown text for specific provider
-                const select = document.getElementById('email-provider');
-                if (select) {
-                    // We can try to infer which one is connected or just mark them
-                    // For simplicity, let's just update the button for now as requested
-                }
-            }
-
-            // Update Calendar Button
-            if (isConnected('calendar')) {
-                const btn = document.getElementById('calendar-connect-btn');
-                if (btn) {
-                    btn.textContent = 'Connected';
-                    btn.classList.add('connected');
-                    btn.disabled = true;
-                    btn.style.backgroundColor = '#14b8a6';
-                }
-            }
-        }
-
-        // checking the URL params on load to save state
-        if (successParam === 'true' && serviceParam && typeParam) {
-            const connectedServices = JSON.parse(localStorage.getItem('spotfunnel_connected') || '{}');
-            const key = `${serviceParam}-${typeParam}`;
-            connectedServices[key] = {
-                connected: true,
-                timestamp: new Date().toISOString()
-            };
+            connectedServices[`${service}-${type}`] = { connected: true, timestamp: new Date().toISOString() };
             localStorage.setItem('spotfunnel_connected', JSON.stringify(connectedServices));
-            // Clean URL
-            window.history.replaceState({}, document.title, window.location.pathname);
+
+            // Show Success Overlay
+            const overlay = document.getElementById('success-overlay');
+            const msg = document.getElementById('success-message');
+            const sub = document.getElementById('success-subtext');
+
+            msg.textContent = `${service.charAt(0).toUpperCase() + service.slice(1)} ${type.charAt(0).toUpperCase() + type.slice(1)} Connected!`;
+            sub.textContent = "Your account is now linked. You can continue or finish below.";
+            overlay.classList.add('active');
+
+            // Remove it after 3 seconds
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                // Clean URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+                updateUI();
+            }, 3000);
         }
 
-        // Run updates
-        updateFromStorage();
+        function isConnected(type) {
+            const connectedServices = JSON.parse(localStorage.getItem('spotfunnel_connected') || '{}');
+            return Object.keys(connectedServices).some(key => key.endsWith(`-${type}`) && connectedServices[key].connected);
+        }
 
-        // Listeners to update state if they switch providers (optional, but good for polish)
-        document.getElementById('email-provider').addEventListener('change', () => updateFromStorage());
-        document.getElementById('calendar-provider').addEventListener('change', () => updateFromStorage());
+        function updateUI() {
+            const emailConnected = isConnected('email');
+            const calendarConnected = isConnected('calendar');
 
+            if (emailConnected) {
+                const btn = document.getElementById('email-connect-btn');
+                btn.textContent = 'Connected ✓';
+                btn.classList.add('connected');
+                btn.disabled = true;
+            }
 
-        // Email Connect Button
-        document.getElementById('email-connect-btn').addEventListener('click', function (e) {
-            e.preventDefault();
-            const provider = document.getElementById('email-provider').value;
-            if (!provider) { alert('Please select an email provider'); return; }
-            connectProvider(provider, 'email');
-        });
+            if (calendarConnected) {
+                const btn = document.getElementById('calendar-connect-btn');
+                btn.textContent = 'Connected ✓';
+                btn.classList.add('connected');
+                btn.disabled = true;
+            }
 
-        // Calendar Connect Button
-        document.getElementById('calendar-connect-btn').addEventListener('click', function (e) {
-            e.preventDefault();
-            const provider = document.getElementById('calendar-provider').value;
-            if (!provider) { alert('Please select a calendar provider'); return; }
-            connectProvider(provider, 'calendar');
-        });
+            if (emailConnected && calendarConnected) {
+                document.getElementById('dashboard-btn-wrapper').style.display = 'block';
+            }
+        }
 
-        function connectProvider(provider, type) {
+        updateUI();
+
+        document.getElementById('email-connect-btn').addEventListener('click', () => handleConnect('email'));
+        document.getElementById('calendar-connect-btn').addEventListener('click', () => handleConnect('calendar'));
+
+        function handleConnect(type) {
+            const provider = document.getElementById(`${type}-provider`).value;
+            if (!provider) { alert(`Select a ${type} provider`); return; }
+
+            const state = JSON.stringify({ type, provider });
+            const scopes = provider === 'google'
+                ? ['openid', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', type === 'email' ? 'https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.readonly' : 'https://www.googleapis.com/auth/calendar']
+                : ['openid', 'profile', 'email', 'User.Read', 'offline_access', type === 'email' ? 'https://graph.microsoft.com/Mail.Send https://graph.microsoft.com/Mail.Read' : 'https://graph.microsoft.com/Calendars.ReadWrite'];
+
             if (provider === 'google') {
-                connectGoogle(type);
+                window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CONFIG.googleClientId}&redirect_uri=${CONFIG.googleRedirectUri}&response_type=code&scope=${scopes.join(' ')}&access_type=offline&prompt=consent&state=${state}`;
             } else if (provider === 'microsoft') {
-                connectMicrosoft(type);
-            } else if (provider === 'apple') {
-                connectApple(type);
+                window.location.href = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${CONFIG.microsoftClientId}&redirect_uri=${CONFIG.microsoftRedirectUri}&response_type=code&scope=${scopes.join(' ')}&response_mode=query&state=${state}`;
+            } else {
+                window.location.href = `apple-setup.html?type=${type}`;
             }
-        }
-
-        function connectGoogle(type) {
-            let scopes = [
-                'https://www.googleapis.com/auth/userinfo.email',
-                'https://www.googleapis.com/auth/userinfo.profile',
-                'openid'
-            ];
-
-            // STRICT SEPARATION: Only request scopes for the specific type
-            if (type === 'email') {
-                scopes.push('https://www.googleapis.com/auth/gmail.send');
-                scopes.push('https://www.googleapis.com/auth/gmail.readonly');
-            } else if (type === 'calendar') {
-                scopes.push('https://www.googleapis.com/auth/calendar');
-            }
-
-            const googleAuthUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' + new URLSearchParams({
-                client_id: CONFIG.googleClientId,
-                redirect_uri: CONFIG.googleRedirectUri,
-                response_type: 'code',
-                scope: scopes.join(' '),
-                access_type: 'offline',
-                prompt: 'consent',
-                // PASS BOTH EMAIL AND TYPE IN STATE so n8n knows what we are connecting
-                state: `${customerEmail}|${type}`
-            }).toString();
-
-            window.location.href = googleAuthUrl;
-        }
-
-        function connectMicrosoft(type) {
-            let scopes = [
-                'openid',
-                'profile',
-                'email',
-                'User.Read',
-                'offline_access'
-            ];
-
-            // STRICT SEPARATION
-            if (type === 'email') {
-                scopes.push('https://graph.microsoft.com/Mail.Send');
-                scopes.push('https://graph.microsoft.com/Mail.Read');
-            } else if (type === 'calendar') {
-                scopes.push('https://graph.microsoft.com/Calendars.ReadWrite');
-            }
-
-            const microsoftAuthUrl = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?' + new URLSearchParams({
-                client_id: CONFIG.microsoftClientId,
-                redirect_uri: CONFIG.microsoftRedirectUri,
-                response_type: 'code',
-                scope: scopes.join(' '),
-                response_mode: 'query',
-                state: `${customerEmail}|${type}`
-            }).toString();
-
-            window.location.href = microsoftAuthUrl;
-        }
-
-        function connectApple(type) {
-            // Redirect to Apple setup with type parameter
-            window.location.href = `apple-setup.html?type=${type}`;
         }
     </script>
 </body>
-
 </html>
