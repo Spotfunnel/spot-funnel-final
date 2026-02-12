@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpotFunnel - V3 Analyst</title>
+    <title>Spot Funnel - Revenue Protection Infrastructure</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
         :root {
-            --slate-900: #0f172a;
-            --emerald: #10b981;
-            --bg: #f8fafc;
+            --primary: #0f172a;
+            /* Deep Slate */
+            --accent: #10b981;
+            /* Emerald */
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
         }
 
         * {
@@ -21,105 +25,274 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--slate-900);
+            background-color: #ffffff;
+            color: var(--primary);
             height: 100vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            /* Explicit Grid lines */
+            /* Subtle Square Grid per reference */
             background-image:
-                linear-gradient(#e2e8f0 1px, transparent 1px),
-                linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
-            background-size: 80px 80px;
+                linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
         }
 
-        header {
-            padding: 40px 80px;
+        /* Top Header */
+        .header {
+            padding: 40px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #e2e8f0;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
+            width: 100%;
         }
 
-        .brand {
+        .brand-block {
             display: flex;
-            align-items: center; gap: 14px;
+            align-items: center;
+            gap: 12px;
         }
 
+        /* Corrected Logo (Circle + 2 Legs) */
         .logo-mark {
-            width: 32px; height: 35px;
+            width: 32px;
+            height: 35px;
             position: relative;
         }
 
         .mark-head {
-            width: 14px; height: 14px; background: #000; border-radius: 50%;
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 14px;
+            height: 14px;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        .mark-legs {
-            position: absolute; bottom: 0; width: 100%; height: 21px;
-            display: flex; justify-content: center; gap: 5px;
+        .mark-body {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 4px;
         }
 
-        .leg { width: 8px; height: 24px; background: #000; }
-        .leg-l { transform: rotate(18deg) translateY(-1px); }
-        .leg-r { transform: rotate(-18deg) translateY(-1px); }
+        .leg {
+            width: 8px;
+            height: 22px;
+            background: #000;
+        }
 
-        .brand-text { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
-        .dot { color: var(--emerald); }
+        .leg-left {
+            transform: rotate(18deg) translateY(-1px);
+        }
 
-        main { flex: 1; padding: 80px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; }
+        .leg-right {
+            transform: rotate(-18deg) translateY(-1px);
+        }
 
-        .content h1 { font-size: 72px; font-weight: 800; line-height: 1; letter-spacing: -3px; margin-bottom: 24px; }
-        .content h1 span { color: var(--emerald); display: inline-block; border-bottom: 8px solid var(--emerald); padding-bottom: 4px; }
+        .brand-text {
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #000;
+        }
 
-        .hero-sub { font-size: 18px; line-height: 1.6; color: #64748b; max-width: 500px; margin-bottom: 40px; }
+        .confidential {
+            font-size: 10px;
+            font-weight: 700;
+            color: #94a3b8;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
 
-        .metric-card { background: #fff; border: 1px solid #e2e8f0; padding: 40px; box-shadow: 0 10px 20px rgba(0,0,0,0.02); }
-        .stat { border-left: 2px solid var(--emerald); padding-left: 20px; margin-bottom: 30px; }
-        .stat:last-child { margin-bottom: 0; }
-        .stat h3 { font-size: 11px; text-transform: uppercase; color: #94a3b8; letter-spacing: 1px; margin-bottom: 4px; }
-        .stat p { font-size: 24px; font-weight: 700; color: var(--slate-900); }
+        /* Main Stage */
+        .main-stage {
+            flex: 1;
+            padding: 0 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: -40px;
+        }
 
-        footer { padding: 40px 80px; display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; color: #94a3b8; letter-spacing: 1.5px; border-top: 1px solid #e2e8f0; background: #fff; }
+        h1 {
+            font-size: 92px;
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -4px;
+            color: #0f172a;
+            margin-bottom: 40px;
+        }
 
-        .reveal { animation: fadeIn 1s ease both; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        h1 .gradient {
+            background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-style: italic;
+            /* Matching original style */
+        }
+
+        .sub-headline-box {
+            border-left: 4px solid var(--accent);
+            padding-left: 32px;
+            margin-bottom: 40px;
+            max-width: 700px;
+        }
+
+        .sub-headline {
+            font-size: 24px;
+            line-height: 1.4;
+            color: #475569;
+            font-weight: 400;
+        }
+
+        .cta-container {
+            margin-bottom: 60px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 36px;
+            background: #10b981;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            background: #059669;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Metrics Bar */
+        .metrics-divider {
+            height: 1px;
+            background: var(--primary);
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 32px;
+            opacity: 0.2;
+        }
+
+        .metrics-grid {
+            display: flex;
+            gap: 100px;
+        }
+
+        .metric .label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .metric .value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            font-weight: 600;
+            color: #cbd5e1;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Entrance Animation */
+        .fade-in {
+            animation: fadeInReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes fadeInReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
+
 <body>
-    <header class="reveal">
-        <div class="brand">
+
+    <header class="header">
+        <div class="brand-block">
             <div class="logo-mark">
                 <div class="mark-head"></div>
-                <div class="mark-legs"><div class="leg leg-l"></div><div class="leg leg-r"></div></div>
+                <div class="mark-body">
+                    <div class="leg leg-left"></div>
+                    <div class="leg leg-right"></div>
+                </div>
             </div>
-            <div class="brand-text">SpotFunnel<span class="dot">.</span></div>
+            <div class="brand-text">SpotFunnel<span class="logo-dot">.</span></div>
         </div>
-        <div>CONFIDENTIAL REPORT // 2026</div>
+        <div class="confidential">CONFIDENTIAL // 2026 STRATEGY</div>
     </header>
 
-    <main>
-        <div class="content reveal" style="animation-delay: 0.1s;">
-            <h1>Revenue<br><span>Protection</span></h1>
-            <p class="hero-sub">Standardizing the architectural process for capturing inbound leads and safeguarding revenue streams across the enterprise.</p>
-            <div style="margin-top: 32px;">
-                <a href="connect.html" style="display: inline-block; padding: 14px 28px; background: #10b981; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.2s; box-shadow: 0 4px 12px rgba(16,185,129,0.2);">Connect Your Apps →</a>
+    <main class="main-stage">
+        <div class="fade-in">
+            <h1>
+                Revenue Protection<br>
+                <span class="gradient">Infrastructure.</span>
+            </h1>
+
+            <div class="sub-headline-box">
+                <p class="sub-headline">
+                    The automated architectural layer that captures, qualifies,
+                    and converts missed opportunities into measurable
+                    enterprise value.
+                </p>
             </div>
-        </div>
-        <div class="metric-card reveal" style="animation-delay: 0.2s;">
-            <div class="stat"><h3>Benchmark</h3><p>62% Current Leakage</p></div>
-            <div class="stat"><h3>Target</h3><p>0% Lead Decay</p></div>
-            <div class="stat"><h3>System</h3><p>Automated Follow-up</p></div>
+
+            <div class="cta-container">
+                <a href="connect.html" class="cta-button">Connect Your Apps →</a>
+            </div>
+
+            <div class="metrics-divider"></div>
+
+            <div class="metrics-grid">
+                <div class="metric">
+                    <span class="label">Problem</span>
+                    <p class="value">62% of inbound calls go unanswered.</p>
+                </div>
+                <div class="metric">
+                    <span class="label">Outcome</span>
+                    <p class="value">Zero Lead Leakage.</p>
+                </div>
+            </div>
         </div>
     </main>
 
-    <footer class="reveal" style="animation-delay: 0.3s;">
-        <div>© 2026 SPOTFUNNEL TECHNOLOGIES</div>
-        <div>DATA SOURCE: INTERNAL AUDIT</div>
+    <footer class="footer">
+        <div>© 2026 Spot Funnel Technologies</div>
+        <div>INTERNAL USE ONLY</div>
     </footer>
 </body>
 </html>
